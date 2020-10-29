@@ -30,10 +30,12 @@
 #include <app/tests/integration/common.h>
 #include <core/CHIPCore.h>
 #include <platform/CHIPDeviceLayer.h>
+#include <protocols/mcsp/MessageCounterManager.h>
 
 #include "InteractionModelEngine.h"
 #include <support/ErrorStr.h>
 #include <system/SystemPacketBuffer.h>
+#include <transport/DummyMessageCounterManager.h>
 #include <transport/PASESession.h>
 #include <transport/SecureSessionMgr.h>
 #include <transport/raw/UDP.h>
@@ -102,6 +104,7 @@ namespace {
 chip::TransportMgr<chip::Transport::UDP> gTransportManager;
 chip::SecureSessionMgr gSessionManager;
 chip::SecurePairingUsingTestSecret gTestPairing;
+chip::mcsp::MessageCounterManager gMessageCounterManager;
 
 } // namespace
 
@@ -121,10 +124,14 @@ int main(int argc, char * argv[])
         chip::Transport::UdpListenParameters(&chip::DeviceLayer::InetLayer).SetAddressType(chip::Inet::kIPAddressType_IPv4));
     SuccessOrExit(err);
 
-    err = gSessionManager.Init(chip::kTestDeviceNodeId, &chip::DeviceLayer::SystemLayer, &gTransportManager, &admins);
+    err = gSessionManager.Init(chip::kTestDeviceNodeId, &chip::DeviceLayer::SystemLayer, &gTransportManager, &admins,
+                               &gMessageCounterManager);
     SuccessOrExit(err);
 
     err = gExchangeManager.Init(chip::kTestDeviceNodeId, &gTransportManager, &gSessionManager);
+    SuccessOrExit(err);
+
+    err = gMessageCounterManager.Init(&gExchangeManager);
     SuccessOrExit(err);
 
     err = chip::app::InteractionModelEngine::GetInstance()->Init(&gExchangeManager);
