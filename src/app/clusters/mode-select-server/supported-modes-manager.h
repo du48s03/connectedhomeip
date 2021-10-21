@@ -37,13 +37,28 @@ namespace app {
 namespace Clusters {
 namespace ModeSelectCluster {
 
+/**
+ * Interface to help manage the supported modes of the Mode Select Cluster.
+ */
 class SupportedModesManager
 {
 public:
 
+    /**
+     * Given the endpointId, returns all its supported modes options.
+     * @param endpointId
+     * @return
+     */
     virtual const std::vector<ModeOptionStructType> getSupportedModesForEndpoint(EndpointId endpointId) const = 0;
 
-    virtual EmberAfStatus getModeOptionByMode(EndpointId & endpointId, uint8_t & mode, const ModeOptionStructType *& dataPtr) const = 0;
+    /**
+     * Given the endpointId and a mode value, find the ModeOptionStruct that matches the mode.
+     * @param endpointId
+     * @param mode
+     * @param dataPtr
+     * @return
+     */
+    virtual EmberAfStatus getModeOptionByMode(EndpointId endpointId, uint8_t mode, const ModeOptionStructType *& dataPtr) const = 0;
 
     virtual ~SupportedModesManager() {};
 
