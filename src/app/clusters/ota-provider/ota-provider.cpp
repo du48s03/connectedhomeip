@@ -191,7 +191,7 @@ bool emberAfOtaSoftwareUpdateProviderClusterQueryImageCallback(app::CommandHandl
     ChipLogDetail(Zcl, "  ProtocolsSupported: %" PRIu8, protocolsSupported);
     ChipLogDetail(Zcl, "  HardwareVersion: %" PRIu16, hardwareVersion);
     ChipLogDetail(Zcl, "  Location: %.*s", static_cast<int>(location.size()), location.data());
-    ChipLogDetail(Zcl, "  RequestorCanConsent: %" PRIu8, requestorCanConsent);
+    ChipLogDetail(Zcl, "  RequestorCanConsent: %" PRIu32, requestorCanConsent);
     ChipLogDetail(Zcl, "  MetadataForProvider: %zu", metadataForProvider.size());
 
     if (location.size() != kLocationLen)

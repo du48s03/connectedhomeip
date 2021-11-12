@@ -33,6 +33,7 @@ import("${chip_root}/build/chip/tools.gni")
 import("//src/crypto/crypto.gni")
 
 if (current_toolchain != "${dir_pw_toolchain}/default:default") {
+  print("current_toolchain is not pigweed")
   declare_args() {
     chip_enable_python_modules =
         (current_os == "mac" || current_os == "linux") &&
@@ -174,6 +175,9 @@ if (current_toolchain != "${dir_pw_toolchain}/default:default") {
 } else {
   # This is the unified build. Configure various real toolchains.
   import("${chip_root}/build/chip/chip_build.gni")
+
+  print("current_toolchain is pigweed")
+  
   declare_args() {
     # Set this to false to disable all builds by default.
     enable_default_builds = true
@@ -274,6 +278,9 @@ if (current_toolchain != "${dir_pw_toolchain}/default:default") {
     enable_k32w_shell_app_build = enable_k32w_builds
 
     enable_fake_tests = enable_default_builds && host_os == "linux"
+
+    enable_linux_mode_select_app_build = true
+    
   }
 
   if (enable_host_clang_build) {
@@ -393,6 +400,14 @@ if (current_toolchain != "${dir_pw_toolchain}/default:default") {
     group("linux_lighting_app") {
       deps = [
         "${chip_root}/examples/lighting-app/linux(${standalone_toolchain})",
+      ]
+    }
+  }
+
+  if (enable_linux_mode_select_app_build) {
+    group("linux_mode_select_app") {
+      deps = [
+        "${chip_root}/examples/mode-select/linux(${standalone_toolchain})",
       ]
     }
   }
