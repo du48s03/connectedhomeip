@@ -23,9 +23,9 @@ Structs::ModeOptionStruct::Type buildModeOptionStruct(const char * label, uint8_
 }
 } // namespace
 
-const Structs::ModeOptionStruct::Type StaticSupportedModesManager::blackOption      = buildModeOptionStruct("Black", 0, 0);
-const Structs::ModeOptionStruct::Type StaticSupportedModesManager::cappuccinoOption = buildModeOptionStruct("Cappuccino", 4, 0);
-const Structs::ModeOptionStruct::Type StaticSupportedModesManager::espressoOption   = buildModeOptionStruct("Espresso", 7, 0);
+const Structs::ModeOptionStruct::Type StaticSupportedModesManager::blackOption      = buildModeOptionStruct("American", 0, 0);
+const Structs::ModeOptionStruct::Type StaticSupportedModesManager::cappuccinoOption = buildModeOptionStruct("Cappuccino", 1, 0);
+const Structs::ModeOptionStruct::Type StaticSupportedModesManager::espressoOption   = buildModeOptionStruct("Espresso", 2, 0);
 storage_value_type StaticSupportedModesManager::coffeeOptions[] = { &blackOption, &cappuccinoOption, &espressoOption };
 const Span<storage_value_type> StaticSupportedModesManager::coffeeOptionsSpan =
     Span<storage_value_type>(StaticSupportedModesManager::coffeeOptions);
