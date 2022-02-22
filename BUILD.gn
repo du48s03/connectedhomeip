@@ -247,6 +247,10 @@ if (current_toolchain != "${dir_pw_toolchain}/default:default") {
     enable_linux_door_lock_app_build =
         enable_default_builds && (host_os == "linux" || host_os == "mac")
 
+    # Build the Linux mode select app example.
+    enable_linux_mode_select_app_build =
+        enable_default_builds && (host_os == "linux" || host_os == "mac")
+
     # Build the cc13x2x7_26x2x7 lock app example.
     enable_cc13x2x7_26x2x7_lock_app_build = enable_ti_simplelink_builds
 
@@ -402,6 +406,14 @@ if (current_toolchain != "${dir_pw_toolchain}/default:default") {
     group("linux_door_lock_app") {
       deps = [
         "${chip_root}/examples/door-lock-app/linux(${standalone_toolchain})",
+      ]
+    }
+  }
+
+  if (enable_linux_mode_select_app_build) {
+    group("linux_mode_select_app") {
+      deps = [
+        "${chip_root}/examples/mode-select/linux(${standalone_toolchain})",
       ]
     }
   }
